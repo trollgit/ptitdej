@@ -5,10 +5,30 @@ document.getElementById("formulaire").addEventListener("submit", function(event)
     const email = document.getElementById("email").value;
     const personnes = document.getElementById("personnes").value;
 
-    console.log("Nouvelle inscription :", { nom, email, personnes });
+    const inscrit = { nom, email, personnes };
+
+    const anciens = JSON.parse(localStorage.getItem("inscrits")) || [];
+    anciens.push(inscrit);
+    localStorage.setItem("inscrits", JSON.stringify(anciens));
 
     document.getElementById("confirmation").innerText = "Merci pour votre inscription, " + nom + " !";
-
-    // Optionnel : vider le formulaire
     document.getElementById("formulaire").reset();
+});
+
+document.getElementById("voir-inscrits").addEventListener("click", function() {
+    const liste = document.getElementById("liste-inscrits");
+    liste.innerHTML = "";
+
+    const inscrits = JSON.parse(localStorage.getItem("inscrits")) || [];
+
+    if (inscrits.length === 0) {
+        liste.innerHTML = "<li>Aucun inscrit pour le moment.</li>";
+        return;
+    }
+
+    inscrits.forEach((inscrit, index) => {
+        const item = document.createElement("li");
+        item.textContent = `${index + 1}. ${inscrit.nom} (${inscrit.email}) - ${inscrit.personnes} personne(s)`;
+        liste.appendChild(item);
+    });
 });
