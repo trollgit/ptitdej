@@ -35,6 +35,7 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 button:hover {
@@ -45,4 +46,9 @@ button:hover {
     margin-top: 15px;
     color: green;
     text-align: center;
+}
+
+#liste-inscrits {
+    margin-top: 15px;
+    padding-left: 20px;
 }
